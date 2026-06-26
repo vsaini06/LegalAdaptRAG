@@ -1,0 +1,42 @@
+# API
+fastapi
+uvicorn[standard]
+pydantic
+pydantic-settings
+python-dotenv
+python-multipart
+
+# Database
+asyncpg
+sqlalchemy[asyncio]
+
+# Cache
+redis
+
+# Vector store
+chromadb
+
+# Embeddings and ML
+sentence-transformers
+scikit-learn
+numpy
+joblib
+
+# Retrieval
+rank-bm25
+
+# PDF processing
+pypdf
+
+# LLM providers
+openai
+anthropic
+httpx
+
+# Auth
+python-jose[cryptography]
+passlib[bcrypt]
+
+# Utilities
+pyyaml
+rich
