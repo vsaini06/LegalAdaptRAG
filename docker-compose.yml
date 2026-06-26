@@ -17,10 +17,10 @@ services:
   postgres:
     image: postgres:16-alpine
     environment:
-      POSTGRES_USER: legalrag
-      POSTGRES_PASSWORD: legalrag
-      POSTGRES_DB: legaladaptrag
-    ports:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports: # Remove ports in production (internal network access only)
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
@@ -28,6 +28,7 @@ services:
 
   redis:
     image: redis:7-alpine
+    command: redis-server --requirepass ${REDIS_PASSWORD}
     ports:
       - "6379:6379"
     volumes:
@@ -36,6 +37,9 @@ services:
 
   chromadb:
     image: chromadb/chroma:latest
+    environment:
+      CHROMA_SERVER_AUTH_CREDENTIALS: ${CHROMA_TOKEN}
+      CHROMA_SERVER_AUTH_PROVIDER: chromadb.auth.token.TokenAuthServerProvider
     ports:
       - "8001:8000"
     volumes:
@@ -44,7 +48,7 @@ services:
 
   ollama:
     image: ollama/ollama:latest
-    ports:
+    ports: # Remove ports in production (internal network access only)
       - "11434:11434"
     volumes:
       - ollama_data:/root/.ollama
